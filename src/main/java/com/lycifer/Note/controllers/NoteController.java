@@ -30,22 +30,22 @@ public class NoteController {
         return modelAndView;
     }
 
-//    @GetMapping("/create-note")
-//    public ModelAndView showCreateForm(){
-//        ModelAndView modelAndView = new ModelAndView("create");
-//        modelAndView.addObject("note",new Note());
-//        return modelAndView;
-//    }
-//
-//    @PostMapping("/create-note")
-//    public ModelAndView saveNote(@ModelAttribute("note") Note note){
-//        noteService.save(note);
-//
-//        ModelAndView modelAndView = new ModelAndView("create");
-//        modelAndView.addObject("note", new Note());
-//        modelAndView.addObject("message", "New note created successfully!");
-//        return modelAndView;
-//    }
+    @GetMapping("/create-note")
+    public ModelAndView showCreateForm(){
+        ModelAndView modelAndView = new ModelAndView("create");
+        modelAndView.addObject("note",new Note());
+        return modelAndView;
+    }
+
+    @PostMapping("/create-note")
+    public ModelAndView saveNote(@ModelAttribute("note") Note note){
+        noteService.save(note);
+
+        ModelAndView modelAndView = new ModelAndView("create");
+        modelAndView.addObject("note", new Note());
+        modelAndView.addObject("message", "New note created successfully!");
+        return modelAndView;
+    }
 //
 //    @GetMapping("/edit-note/{id}")
 //    public ModelAndView showEditForm(@PathVariable Long id){
