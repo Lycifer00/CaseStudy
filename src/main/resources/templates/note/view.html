@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+<h1>View Note</h1>
+<p>
+    <a th:href="@{/}">
+        Back to note list
+    </a>
+</p>
+<div>
+    <div>
+        <label>Title: </label>
+        <label th:text="${note.getTitle()}"></label>
+    </div>
+    <div>
+        <label>Content: </label>
+        <label th:text="${note.getContent()}"></label>
+    </div>
+    <div class="axis-label">
+        <label>Type of Note: </label>
+        <label th:text="${note.noteType.name}"></label>
+    </div>
+    <!--<div>-->
+        <!--<input type="submit" value="Delete"/>-->
+    <!--</div>-->
+</div>
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

@@ -1,15 +1,22 @@
 package com.lycifer.Note.controllers;
 
 import com.lycifer.Note.model.Note;
+import com.lycifer.Note.model.NoteType;
 import com.lycifer.Note.service.NoteService;
+import com.lycifer.Note.service.NoteTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -17,74 +24,97 @@ public class NoteController {
     @Autowired
     private NoteService noteService;
 
+    @Autowired
+    private NoteTypeService noteTypeService;
+
+    @ModelAttribute("note-type")
+    public Page <NoteType> noteTypes(Pageable pageable) {
+        return noteTypeService.findAll(pageable);
+    }
+
     @GetMapping("/")
-    public ModelAndView listNotes(@RequestParam("s") Optional<String> s, Pageable pageable){
-        Page<Note> notes;
-        if(s.isPresent()){
-            notes = noteService.findAllByTitleContaining(s.get(), pageable);
+    public ModelAndView listNote(@RequestParam(name = "search") Optional <String> search,
+                                 Pageable pageable) {
+        Page <Note> notes;
+        if (search.isPresent()) {
+            notes = noteService.findAllByTitleContaining(search.get(), new PageRequest(pageable.getPageNumber(), 5));
         } else {
-            notes = noteService.findAll(new PageRequest(pageable.getPageNumber(), 4));
+            notes = noteService.findAll(new PageRequest(pageable.getPageNumber(), 5));
         }
-        ModelAndView modelAndView = new ModelAndView("list");
+        ModelAndView modelAndView = new ModelAndView("note/list");
+        for (Note note : notes
+        ) {
+            if (note.getNoteType() == null) {
+                note.setNoteType(new NoteType("default", "default"));
+            }
+        }
         modelAndView.addObject("notes", notes);
         return modelAndView;
     }
 
-    @GetMapping("/create-note")
-    public ModelAndView showCreateForm(){
-        ModelAndView modelAndView = new ModelAndView("create");
-        modelAndView.addObject("note",new Note());
-        return modelAndView;
-    }
-
-    @PostMapping("/create-note")
-    public ModelAndView saveNote(@ModelAttribute("note") Note note){
-        noteService.save(note);
-
-        ModelAndView modelAndView = new ModelAndView("create");
+    @GetMapping("/create-notes")
+    public ModelAndView showCreateForm() {
+        ModelAndView modelAndView = new ModelAndView("note/create");
         modelAndView.addObject("note", new Note());
-        modelAndView.addObject("message", "New note created successfully!");
         return modelAndView;
     }
 
-    @GetMapping("/edit-note/{id}")
-    public ModelAndView showEditForm(@PathVariable Long id){
-        Optional<Note> note = noteService.findById(id);
-        if(note.isPresent()) {
-            ModelAndView modelAndView = new ModelAndView("/edit");
-            modelAndView.addObject("note", note);
-            return modelAndView;
-
-        }else {
-            return new ModelAndView("/error-404");
+    @PostMapping("/create-notes")
+    public String saveCustomer(@Validated @ModelAttribute("note") Note note
+            , BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasFieldErrors()) {
+            model.addAttribute("note", new Note());
+            model.addAllAttributes(bindingResult.getModel());
+            return "note/create";
+        } else {
+            noteService.save(note);
+            model.addAttribute("notes", note);
+            redirectAttributes.addFlashAttribute("message", "New INote created successfully");
+            return "redirect:/";
         }
     }
 
-    @PostMapping("/edit-note")
-    public ModelAndView updateNote(@ModelAttribute("note") Note note){
-        noteService.save(note);
-        ModelAndView modelAndView = new ModelAndView("/edit");
+    @GetMapping("/edit-notes/{id}")
+    public ModelAndView showEditForm(@PathVariable Long id) {
+        Note note = noteService.findById(id);
+        ModelAndView modelAndView = new ModelAndView("note/edit");
+        if (note.getNoteType() == null) {
+            note.setNoteType(new NoteType("default", "default"));
+        }
         modelAndView.addObject("note", note);
-        modelAndView.addObject("message", "Note updated successfully!");
         return modelAndView;
     }
 
-    @GetMapping("/delete-note/{id}")
-    public ModelAndView showDeleteForm(@PathVariable Long id){
-        Optional<Note> note = noteService.findById(id);
-        if(note.isPresent()) {
-            ModelAndView modelAndView = new ModelAndView("/delete");
-            modelAndView.addObject("note", note);
-            return modelAndView;
 
-        }else {
-            return new ModelAndView("/error-404");
+    @PostMapping("/edit-notes")
+    public String updateINote(@Valid @ModelAttribute Note note
+            , BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasFieldErrors()) {
+            model.addAttribute("note", new Note());
+            model.addAllAttributes(bindingResult.getModel());
+            return "note/edit";
+        } else {
+            noteService.save(note);
+            model.addAttribute("notes", note);
+            redirectAttributes.addFlashAttribute("message", "New INote updated successfully");
+            return "redirect:/";
         }
     }
 
-    @PostMapping("/delete-note")
-    public String deleteCustomer(@ModelAttribute("note") Note note){
-        noteService.remove(note.getId());
+    @GetMapping("/view-notes/{id}")
+    public ModelAndView viewCustomer(@PathVariable Long id) {
+        Note note = noteService.findById(id);
+        ModelAndView modelAndView = new ModelAndView("note/view");
+        modelAndView.addObject("note", note);
+        return modelAndView;
+    }
+
+    @RequestMapping("/delete-notes/{id}")
+    public String showDeleteForm(@PathVariable Long id) {
+        Note note = noteService.findById(id);
+        if (note != null) {
+            noteService.remove(id);
+        }
         return "redirect:/";
     }
 }

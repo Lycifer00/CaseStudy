@@ -2,6 +2,7 @@ package com.lycifer.Note.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "notes")
@@ -10,22 +11,31 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Can not empty!")
+    @NotEmpty
+    @Size(max = 30,min = 1)
     private String title;
 
-    @NotEmpty(message = "Can not empty!")
+    @NotEmpty
+    @Size(max = 500,min = 10)
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "noteType_id")
+    private NoteType noteType;
 
     public Note(){}
 
-    public Note(String title, String content){
+    public Note(@NotEmpty @Size(max = 30,min = 1) String title, @NotEmpty @Size(max = 500,min = 10) String content){
         this.title = title;
         this.content = content;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Note[id=%d, title='%s', content='%s']", id, title, content);
+    public NoteType getNoteType() {
+        return noteType;
+    }
+
+    public void setNoteType(NoteType noteType) {
+        this.noteType = noteType;
     }
 
     public String getTitle() {
