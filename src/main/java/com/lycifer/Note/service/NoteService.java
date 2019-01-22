@@ -17,4 +17,9 @@ public interface NoteService {
     void remove(Long id);
 
     Page <Note> findAllByNoteType(NoteType noteType, Pageable pageable);
+
+
+//    Page<Note> findAllByTitleContainingOrContentContainingOrIdContaining(String s, String s1, Long id, Pageable pageable);
+//
+//    Page<Note> findAllByNoteTypeAndTitleContainingAndIdContaining(NoteType noteType, String s, Long id, Pageable pageable);
 }

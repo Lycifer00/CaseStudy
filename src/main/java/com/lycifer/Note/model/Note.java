@@ -20,7 +20,7 @@ public class Note {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "noteType_id")
+    @JoinColumn(name = "type_id")
     private NoteType noteType;
 
     public Note(){}
