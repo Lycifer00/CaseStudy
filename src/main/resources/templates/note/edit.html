@@ -18,7 +18,7 @@
             </tr>
             <tr>
                 <td>Type of Note: </td>
-                <td>
+                <td><div class="styled-select">
                     <select name="noteType">
                         <option th:if="${note.noteType}"
                                 th:each="noteType: ${noteTypes}"
@@ -26,7 +26,7 @@
                                 th:text="${noteType.name}"
                                 th:selected="(${noteType.id} == *{noteType.id})">
                         </option>
-                    </select>
+                    </select></div>
                 </td>
             </tr>
             <tr>
