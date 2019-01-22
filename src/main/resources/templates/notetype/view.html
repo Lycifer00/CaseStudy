@@ -3,11 +3,7 @@
 <head th:replace="layout :: head"></head>
 <body>
 <h1>View Type: <span th:text="${noteType.name}"></span></h1>
-<p>
-    <a th:href="@{/note-types}">
-        Back to type list
-    </a>
-</p>
+<h3><a th:href="@{/note-types}">Back to type list</a></h3>
 <table id="noteTypes" border="1">
     <thead>
     <tr>

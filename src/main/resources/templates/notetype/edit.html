@@ -3,12 +3,9 @@
 <head th:replace="layout :: head"></head>
 <body>
 <h1>Edit Type</h1>
-<p>
-    <a th:href="@{/note-types}">
-        Back to type list
-    </a>
-</p>
+
 <div id="form">
+    <h3><a th:href="@{/note-types}">Back to type list</a></h3>
     <form th:action="@{/edit-notetype}" th:object="${noteType}" method="post">
         <input th:type="hidden" name="id" th:field="*{id}">
         <table>

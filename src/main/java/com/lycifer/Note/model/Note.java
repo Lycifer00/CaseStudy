@@ -11,12 +11,12 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Can't not empty")
     @Size(max = 30,min = 1)
     private String title;
 
-    @NotEmpty
-    @Size(max = 500,min = 10)
+    @NotEmpty(message = "Can't not empty")
+    @Size(max = 200 ,min = 10)
     private String content;
 
     @ManyToOne
@@ -25,7 +25,7 @@ public class Note {
 
     public Note(){}
 
-    public Note(@NotEmpty @Size(max = 30,min = 1) String title, @NotEmpty @Size(max = 500,min = 10) String content){
+    public Note(@NotEmpty @Size(max = 30,min = 1) String title, @NotEmpty @Size(max = 200,min = 10) String content){
         this.title = title;
         this.content = content;
     }

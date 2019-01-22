@@ -3,16 +3,7 @@
 <head th:replace="layout :: head"></head>
 <body>
 <h1>Note Types</h1>
-<p>
-    <a th:href="@{/}">
-        Back to note list
-    </a>
-</p>
-<p>
-    <a th:href="@{/create-notetype}">
-        Add new note type
-    </a>
-</p>
+<h3><a th:href="@{/}">Back to note list</a> | <a th:href="@{/create-notetype}">Add new note type</a></h3>
 <div class="notify">
     <div th:if="${message}">
         <span th:text="${message}"></span>

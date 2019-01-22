@@ -3,13 +3,13 @@
 <head th:replace="layout :: head"></head>
 <body>
 <h1>View Note</h1>
+<h3><a th:href="@{/}">Back to note list</a></h3>
 <div class="paper">
-    <div class="link"><a th:href="@{/}">Back to note list</a></div>
     <div class="lines">
         <div class="text" contenteditable spellcheck="false">
             <label th:text="${note.getTitle()}"></label>
             <br/>
-            <label>Type of Note: </label>
+            <label>Type: </label>
             <label th:text="${note.noteType.name}"></label>
             <br/>
             <br/>

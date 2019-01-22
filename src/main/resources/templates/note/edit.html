@@ -7,11 +7,7 @@
 <body>
 <h1>Edit note</h1>
 <div id="form">
-    <p>
-        <a th:href="@{/}">
-            Back to notes list
-        </a>
-    </p>
+    <h3><a th:href="@{/}">Back to notes list</a></h3>
     <form th:action="@{/edit-note}" th:object="${note}" method="post">
         <input th:type="hidden" name="id" th:field="*{id}">
         <table>

@@ -11,7 +11,7 @@ public class NoteType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Can't not empty")
     private String name;
     private String description;
 

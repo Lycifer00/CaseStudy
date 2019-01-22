@@ -7,11 +7,7 @@
 <body>
 <h1>Create new note</h1>
 <div id="form">
-    <p>
-        <a th:href="@{/}">
-            Back to notes list
-        </a>
-    </p>
+    <h3><a th:href="@{/}">Back to notes list</a></h3>
     <form th:action="@{/create-note}" th:object="${note}" method="post">
         <table>
             <tr>
@@ -20,10 +16,11 @@
                 <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</td>
             </tr>
             <tr>
-                <td>Type of Note: </td>
-                <td><select th:field="*{noteType}" >
+                <td>Type: </td>
+                <td><div class="styled-select">
+                    <select th:field="*{noteType}" >
                     <option th:each="noteType : ${noteTypes}" th:value="${noteType.id}" th:text="${noteType.name}"></option>
-                </select></td>
+                </select></div></td>
             </tr>
             <tr>
                 <td>Content: </td>
