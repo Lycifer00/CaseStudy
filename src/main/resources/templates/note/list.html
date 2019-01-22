@@ -7,15 +7,15 @@
 </head>
 <body>
 <h1>Notes</h1>
-<a th:href="@{/note-types}">Go to note type list</a> | <a th:href="@{/create-inote}">Create note</a>
-<div class="notify">
+<a th:href="@{/note-types}">Go to note type list</a> | <a th:href="@{/create-note}">Create note</a>
+<div class="message">
     <div th:if="${message}">
         <span th:text="${message}"></span>
     </div>
 </div>
 <form>
     <p>Search by title:</p>
-    <input name="search" type="text"/>
+    <input name="search" type="text" width="50" placeholder="Enter your word"/>
     <input type="submit" value="Search"/>
 </form>
 <div>
@@ -43,9 +43,9 @@
         <td th:if="${note.noteType}"
             th:text="${note.noteType.name}"
         ></td>
-        <td><a th:href="@{/edit-inote/__${note.id}__}">Edit</a></td>
-        <td><a th:href="@{/delete-inote/__${note.id}__}" th:onclick="Are you sure">Delete</a></td>
-        <td><a th:href="@{/view-inote/__${note.id}__}">View</a></td>
+        <td><a th:href="@{/edit-note/__${note.id}__}">Edit</a></td>
+        <td><a th:href="@{/delete-note/__${note.id}__}" th:onclick="'alert('Are you sure?')'">Delete</a></td>
+        <td><a th:href="@{/view-note/__${note.id}__}">View</a></td>
     </tr>
     </tbody>
 </table>

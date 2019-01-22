@@ -2,17 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head">
     <meta charset="UTF-8">
-    <title>Create INote</title>
+    <title>Create note</title>
 </head>
 <body>
 <h1>Create new note</h1>
-<p>
-    <a th:href="@{/}">
-        Back to notes list
-    </a>
-</p>
 <div id="form">
-    <form th:action="@{/create-notes}" th:object="${note}" method="post">
+    <p>
+        <a th:href="@{/}">
+            Back to notes list
+        </a>
+    </p>
+    <form th:action="@{/create-note}" th:object="${note}" method="post">
         <table>
             <tr>
                 <td>Title: </td>
@@ -21,8 +21,8 @@
             </tr>
             <tr>
                 <td>Type of Note: </td>
-                <td><select th:field="*{noteType}">
-                    <option th:each="noteType : ${noteType}" th:value="${noteType.id}" th:text="${noteType.name}"></option>
+                <td><select th:field="*{noteType}" >
+                    <option th:each="noteType : ${noteTypes}" th:value="${noteType.id}" th:text="${noteType.name}"></option>
                 </select></td>
             </tr>
             <tr>

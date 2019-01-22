@@ -38,6 +38,11 @@
     </tr>
     </tbody>
 </table>
+<div>
+    <a th:href="@{'/note-types'(page=${noteTypes.number - 1})}" th:if="${noteTypes.hasPrevious()}">Previous</a>
+    <span th:text="${noteTypes.number + 1}"></span>/<span th:text="${noteTypes.totalPages}"></span>
+    <a th:href="@{'/note-types'(page=${noteTypes.number + 1})}" th:if="${noteTypes.hasNext()}">Next</a>
+</div>
 <footer th:replace="layout :: footer"></footer>
 </body>
 </html>

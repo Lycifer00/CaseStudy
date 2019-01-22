@@ -27,7 +27,7 @@ public class NoteController {
     @Autowired
     private NoteTypeService noteTypeService;
 
-    @ModelAttribute("note-type")
+    @ModelAttribute("noteTypes")
     public Page <NoteType> noteTypes(Pageable pageable) {
         return noteTypeService.findAll(pageable);
     }
@@ -52,14 +52,14 @@ public class NoteController {
         return modelAndView;
     }
 
-    @GetMapping("/create-notes")
+    @GetMapping("/create-note")
     public ModelAndView showCreateForm() {
         ModelAndView modelAndView = new ModelAndView("note/create");
         modelAndView.addObject("note", new Note());
         return modelAndView;
     }
 
-    @PostMapping("/create-notes")
+    @PostMapping("/create-note")
     public String saveCustomer(@Validated @ModelAttribute("note") Note note
             , BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasFieldErrors()) {
@@ -74,7 +74,7 @@ public class NoteController {
         }
     }
 
-    @GetMapping("/edit-notes/{id}")
+    @GetMapping("/edit-note/{id}")
     public ModelAndView showEditForm(@PathVariable Long id) {
         Note note = noteService.findById(id);
         ModelAndView modelAndView = new ModelAndView("note/edit");
@@ -86,7 +86,7 @@ public class NoteController {
     }
 
 
-    @PostMapping("/edit-notes")
+    @PostMapping("/edit-note")
     public String updateINote(@Valid @ModelAttribute Note note
             , BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasFieldErrors()) {
@@ -101,7 +101,7 @@ public class NoteController {
         }
     }
 
-    @GetMapping("/view-notes/{id}")
+    @GetMapping("/view-note/{id}")
     public ModelAndView viewCustomer(@PathVariable Long id) {
         Note note = noteService.findById(id);
         ModelAndView modelAndView = new ModelAndView("note/view");
@@ -109,7 +109,7 @@ public class NoteController {
         return modelAndView;
     }
 
-    @RequestMapping("/delete-notes/{id}")
+    @RequestMapping("/delete-note/{id}")
     public String showDeleteForm(@PathVariable Long id) {
         Note note = noteService.findById(id);
         if (note != null) {

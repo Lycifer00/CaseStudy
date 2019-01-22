@@ -28,7 +28,7 @@ public class NoteTypeController {
 
     @GetMapping("/note-types")
     public ModelAndView listNoteTypes(Pageable pageable) {
-        Page <NoteType> noteTypes = noteTypeService.findAll(new PageRequest(pageable.getPageNumber(), 5));
+        Page <NoteType> noteTypes = noteTypeService.findAll(new PageRequest(pageable.getPageNumber(), 4));
         ModelAndView modelAndView = new ModelAndView("notetype/list");
         modelAndView.addObject("noteTypes", noteTypes);
         return modelAndView;
