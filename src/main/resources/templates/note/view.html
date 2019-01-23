@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout :: head"></head>
+<head th:replace="layout :: head">
+    <link rel="stylesheet" th:href="@{/resources/static/css/style.css}">
+</head>
 <body>
 <h1>View Note</h1>
 <h3><a th:href="@{/}">Back to note list</a></h3>
 <div class="paper">
     <div class="lines">
-        <div class="text" contenteditable spellcheck="false">
+        <div class="text" >
             <label th:text="${note.getTitle()}"></label>
             <br/>
             <label>Type: </label>

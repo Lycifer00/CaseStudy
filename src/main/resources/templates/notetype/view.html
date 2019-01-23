@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout :: head"></head>
+<head th:replace="layout :: head">
+    <link rel="stylesheet" th:href="@{/resources/static/css/style.css}">
+</head>
 <body>
 <h1>View Type: <span th:text="${noteType.name}"></span></h1>
 <h3><a th:href="@{/note-types}">Back to type list</a></h3>
@@ -14,8 +16,8 @@
     <tbody>
     <th:block th:each="note : ${notes}">
         <tr>
-            <td th:text="${note.title}"></td>
-            <td th:text="${note.content}"></td>
+            <td th:text="${noteType.name}"></td>
+            <td th:text="${noteType.description}"></td>
         </tr>
     </th:block>
     </tbody>

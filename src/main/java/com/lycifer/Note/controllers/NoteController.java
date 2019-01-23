@@ -46,7 +46,7 @@ public class NoteController {
         for (Note note : notes
         ) {
             if (note.getNoteType() == null) {
-                note.setNoteType(new NoteType("default", "default"));
+                note.setNoteType(new NoteType("Null", "Null"));
             }
         }
         modelAndView.addObject("notes", notes);

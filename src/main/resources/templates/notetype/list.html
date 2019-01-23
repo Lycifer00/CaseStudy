@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout :: head"></head>
+<head th:replace="layout :: head">
+    <link rel="stylesheet" th:href="@{/resources/static/css/style.css}">
+</head>
 <body>
 <h1>Note Types</h1>
 <h3><a th:href="@{/}">Back to note list</a> | <a th:href="@{/create-notetype}">Add new note type</a></h3>
